@@ -18,7 +18,7 @@ seed <- 16
 outputdir <- inferpopulation(
     data = 'toydata.csv',
     metadata = 'metatoydata.csv',
-    outputdir = 'toy_analysis_2',
+    outputdir = 'deletetoy_analysis_2',
     output = 'directory',
     appendtimestamp = F,
     appendinfo = TRUE,
