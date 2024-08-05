@@ -30,7 +30,7 @@ outputdir <- inferpopulation(
     showAlphatraces = TRUE,
     seed = seed,
     hyperparams = list(
-        nclusters = 64,
+        ncomponents = 64,
         minalpha = -4,
         maxalpha = 4,
         byalpha = 1,
