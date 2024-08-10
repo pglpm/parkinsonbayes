@@ -1,4 +1,4 @@
-name,type,Nvalues,rounding,domainmin,domainmax,minincluded,maxincluded,plotmin,plotmax,V1,V2
+name,type,Nvalues,gapwidth,domainmin,domainmax,minincluded,maxincluded,plotmin,plotmax,V1,V2
 TreatmentGroup,binary,2,,,,,,,,NR,Placebo
 Sex,binary,2,,,,,,,,Female,Male
 Age,continuous,Inf,1,0,Inf,FALSE,FALSE,18,90,,
