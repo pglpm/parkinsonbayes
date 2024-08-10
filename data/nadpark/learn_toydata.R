@@ -17,10 +17,10 @@ outputdir <- inferpopulation(
     appendtimestamp = T,
     appendinfo = TRUE,
     nsamples = 3600,
-    nchains = 8,
-    parallel = 4,
+    nchains = 60,
+    parallel = 8,
     ## startupMCiterations = 1024,
-    maxhours = 0/60,
+    maxhours = +Inf,
     ## relerror = 0.02,
     ncheckpoints = NULL,
     cleanup = FALSE,
@@ -33,7 +33,7 @@ outputdir <- inferpopulation(
 
 cat('\nCalculating mutual information...\n')
 
-mi <- mutualinfo(
+miNR <- mutualinfo(
     Y1names = c('diff.MDS.UPRS.III'),
     Y2names = c('Sex', 'Age',
         'Anamnestic.Loss.of.smell',
@@ -41,12 +41,27 @@ mi <- mutualinfo(
     X = cbind(TreatmentGroup = 'NR'),
     mcoutput = outputdir,
     nsamples = 3600,
-    parallel = 4
+    parallel = 8
 )
 
-print(mi)
+print(miNR)
 
-saveRDS(mi, file.path(outputdir, 'MI.rds'))
+saveRDS(miNR, file.path(outputdir, 'MI_NR.rds'))
+
+miPlacebo <- mutualinfo(
+    Y1names = c('diff.MDS.UPRS.III'),
+    Y2names = c('Sex', 'Age',
+        'Anamnestic.Loss.of.smell',
+        'History.of.REM.Sleep.Behaviour.Disorder'),
+    X = cbind(TreatmentGroup = 'Placebo'),
+    mcoutput = outputdir,
+    nsamples = 3600,
+    parallel = 8
+)
+
+print(miPlacebo)
+
+saveRDS(miPlacebo, file.path(outputdir, 'MI_Placebo.rds'))
 
 warnings()
 
