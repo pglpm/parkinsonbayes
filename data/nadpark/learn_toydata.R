@@ -12,7 +12,7 @@ seed <- 16
 outputdir <- inferpopulation(
     data = 'toydata.csv',
     metadata = 'metatoydata.csv',
-    outputdir = 'output_learn_toydata-1',
+    outputdir = 'output_learn_toydata-2',
     output = 'directory',
     appendtimestamp = T,
     appendinfo = TRUE,
@@ -62,6 +62,26 @@ miPlacebo <- mutualinfo(
 print(miPlacebo)
 
 saveRDS(miPlacebo, file.path(outputdir, 'MI_Placebo.rds'))
+
+Ygrid <- cbind(diff.MDS.UPRS.III = (-132):132)
+
+samplesNR <- samplesFDistribution(
+    Y = Ygrid,
+    X = cbind(TreatmentGroup = 'NR'),
+    mcoutput = outputdir,
+    parallel = 8
+)
+
+saveRDS(samplesNR, file.path(outputdir, 'samples_NR.rds'))
+
+samplesPlacebo <- samplesFDistribution(
+    Y = Ygrid,
+    X = cbind(TreatmentGroup = 'Placebo'),
+    mcoutput = outputdir,
+    parallel = 8
+)
+
+saveRDS(samplesPlacebo, file.path(outputdir, 'samples_Placebo.rds'))
 
 warnings()
 

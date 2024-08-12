@@ -1,0 +1,8 @@
+name,type,Nvalues,gapwidth,domainmin,domainmax,minincluded,maxincluded,plotmin,plotmax,V1,V2
+TreatmentGroup,binary,2,,,,,,,,NR,Placebo
+Sex,binary,2,,,,,,,,Female,Male
+Age,continuous,Inf,1,0,Inf,FALSE,FALSE,18,90,,
+Anamnestic.Loss.of.smell,binary,2,,,,,,,,No,Yes
+History.of.REM.Sleep.Behaviour.Disorder,binary,2,,,,,,,,No,Yes
+MDS.UPDRS..Subsection.III.V1,ordinal,133,1,0,132,,,0,70,,
+diff.MDS.UPRS.III,ordinal,265,1,-132,132,,,-40,40,,
