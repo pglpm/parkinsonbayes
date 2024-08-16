@@ -9,7 +9,7 @@ library('modelfreeinference')
 
 seed <- 16
 
-outputdir <- inferpopulation(
+outputdir <- learn(
     data = 'toydata.csv',
     metadata = 'metatoydata.csv',
     outputdir = 'output_learn_toydata-2',
@@ -39,7 +39,7 @@ miNR <- mutualinfo(
         'Anamnestic.Loss.of.smell',
         'History.of.REM.Sleep.Behaviour.Disorder'),
     X = cbind(TreatmentGroup = 'NR'),
-    mcoutput = outputdir,
+    agent = outputdir,
     nsamples = 3600,
     parallel = 8
 )
@@ -54,7 +54,7 @@ miPlacebo <- mutualinfo(
         'Anamnestic.Loss.of.smell',
         'History.of.REM.Sleep.Behaviour.Disorder'),
     X = cbind(TreatmentGroup = 'Placebo'),
-    mcoutput = outputdir,
+    agent = outputdir,
     nsamples = 3600,
     parallel = 8
 )
@@ -68,7 +68,7 @@ Ygrid <- cbind(diff.MDS.UPRS.III = (-132):132)
 samplesNR <- samplesFDistribution(
     Y = Ygrid,
     X = cbind(TreatmentGroup = 'NR'),
-    mcoutput = outputdir,
+    agent = outputdir,
     parallel = 8
 )
 
@@ -77,7 +77,7 @@ saveRDS(samplesNR, file.path(outputdir, 'samples_NR.rds'))
 samplesPlacebo <- samplesFDistribution(
     Y = Ygrid,
     X = cbind(TreatmentGroup = 'Placebo'),
-    mcoutput = outputdir,
+    agent = outputdir,
     parallel = 8
 )
 
