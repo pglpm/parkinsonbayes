@@ -39,7 +39,7 @@ miNR <- mutualinfo(
         'Anamnestic.Loss.of.smell',
         'History.of.REM.Sleep.Behaviour.Disorder'),
     X = cbind(TreatmentGroup = 'NR'),
-    agent = outputdir,
+    learned = outputdir,
     nsamples = 3600,
     parallel = 8
 )
@@ -54,7 +54,7 @@ miPlacebo <- mutualinfo(
         'Anamnestic.Loss.of.smell',
         'History.of.REM.Sleep.Behaviour.Disorder'),
     X = cbind(TreatmentGroup = 'Placebo'),
-    agent = outputdir,
+    learned = outputdir,
     nsamples = 3600,
     parallel = 8
 )
@@ -65,19 +65,19 @@ saveRDS(miPlacebo, file.path(outputdir, 'MI_Placebo.rds'))
 
 Ygrid <- cbind(diff.MDS.UPRS.III = (-132):132)
 
-samplesNR <- samplesFDistribution(
+samplesNR <- Pr(
     Y = Ygrid,
     X = cbind(TreatmentGroup = 'NR'),
-    agent = outputdir,
-    parallel = 8
+    learned = outputdir,
+    parallel = 4
 )
 
 saveRDS(samplesNR, file.path(outputdir, 'samples_NR.rds'))
 
-samplesPlacebo <- samplesFDistribution(
+samplesPlacebo <- Pr(
     Y = Ygrid,
     X = cbind(TreatmentGroup = 'Placebo'),
-    agent = outputdir,
+    learned = outputdir,
     parallel = 8
 )
 
