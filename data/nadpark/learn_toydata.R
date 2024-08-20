@@ -1,11 +1,11 @@
 ### We now learn from the data.
 ###
-### First we load the 'modelfreeinference' package.
+### First we load the 'inferno' package.
 ### Check the README in
 ### https://github.com/pglpm/bayes_nonparametric_inference
 ### for installation instructions.
 
-library('modelfreeinference')
+library('inferno')
 
 seed <- 16
 
