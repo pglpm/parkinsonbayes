@@ -5,17 +5,17 @@
 ### https://github.com/pglpm/bayes_nonparametric_inference
 ### for installation instructions.
 
-library('modelfreeinference')
+library('inferno')
 
 seed <- 16
 
 outputdir <- learn(
     data = 'toydata.csv',
     metadata = 'metatoydata.csv',
-    outputdir = 'output_learn_toydata-2',
+    outputdir = 'output_learn_toydata-3',
     output = 'directory',
-    appendtimestamp = T,
-    appendinfo = TRUE,
+    appendtimestamp = FALSE,
+    appendinfo = FALSE,
     nsamples = 3600,
     nchains = 60,
     parallel = 8,
@@ -30,6 +30,8 @@ outputdir <- learn(
     showAlphatraces = TRUE,
     seed = seed
 )
+
+stop()
 
 cat('\nCalculating mutual information...\n')
 
