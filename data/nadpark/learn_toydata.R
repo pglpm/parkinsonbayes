@@ -13,8 +13,8 @@ seed <- 16
 parallel <- 4
 
 ## Name of directory where to save what has been "learned"
-## a timestamp will be appended to this string
-savedir <- 'output_learn_toydata-2'
+## a timestamp may be appended to this string
+savedir <- 'output_learn_toydata-3'
 
 ## Call the main function for "learning"
 ## it will save everything in the directory outputdir
@@ -22,7 +22,7 @@ outputdir <- learn(
     data = 'toydata.csv',
     metadata = 'metatoydata.csv',
     outputdir = savedir,
-    appendtimestamp = TRUE,
+    appendtimestamp = FALSE,
     output = 'directory',
     parallel = 8,
     seed = seed
