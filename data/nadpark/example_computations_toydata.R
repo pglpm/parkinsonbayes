@@ -46,9 +46,9 @@ probabilities <- Pr(Y = Y, X = X, learnt = learntdir, parallel = parallel)
 probabilities$values[1:3, 1, drop=FALSE]
 ##       X
 ## Y             [,1]
-##   [1,] 1.90946e-04
-##   [2,] 1.93117e-04
-##   [3,] 2.21409e-06
+##   [1,] 1.48864e-04
+##   [2,] 1.50579e-04
+##   [3,] 1.75271e-06
 
 ## 2. The quantiles of variability of the probabilities.
 ## if more data were collected. The defaults are 5% and 95% quantiles,
@@ -60,20 +60,20 @@ probabilities$values[1:3, 1, drop=FALSE]
 ## Example:
 probabilities$quantiles[1:3, 1, , drop=FALSE]
 ## , ,  = 5%
-##
+## 
 ##       X
 ## Y             [,1]
-##   [1,] 1.25900e-25
-##   [2,] 1.58638e-25
-##   [3,] 5.54592e-26
-##
+##   [1,] 1.08412e-25
+##   [2,] 1.96910e-25
+##   [3,] 3.77502e-26
+## 
 ## , ,  = 95%
-##
+## 
 ##       X
 ## Y             [,1]
-##   [1,] 3.60640e-04
-##   [2,] 3.66703e-04
-##   [3,] 6.26711e-06
+##   [1,] 0.000315934
+##   [2,] 0.000321468
+##   [3,] 0.000005300
 
 ## 3. Samples of how the updated probabilities could be,
 ## if more data were collected.
@@ -83,36 +83,20 @@ probabilities$quantiles[1:3, 1, , drop=FALSE]
 ## Example:
 probabilities$samples[1:3, 1, 1:2, drop=FALSE]
 ## , ,  = 1
-##
+## 
 ##       X
 ## Y             [,1]
-##   [1,] 6.99392e-13
-##   [2,] 8.79806e-13
-##   [3,] 2.25254e-13
-##
-## , ,  = 38
-##
+##   [1,] 5.04301e-15
+##   [2,] 5.39518e-15
+##   [3,] 3.74338e-16
+## 
+## , ,  = 37
+## 
 ##       X
 ## Y             [,1]
-##   [1,] 6.19499e-28
-##   [2,] 1.41093e-27
-##   [3,] 1.78556e-27
-##
-## , ,  = 75
-##
-##       X
-## Y             [,1]
-##   [1,] 1.56743e-03
-##   [2,] 1.56865e-03
-##   [3,] 1.21799e-06
-##
-## , ,  = 112
-##
-##       X
-## Y             [,1]
-##   [1,] 3.37671e-06
-##   [2,] 3.54840e-06
-##   [3,] 1.79237e-07
+##   [1,] 8.90702e-08
+##   [2,] 9.10918e-08
+##   [3,] 2.05679e-09
 
 ## Let's plot the quantile band and the probabilities:
 plotquantiles(x = as.matrix(Y$diff.MDS.UPRS.III),
@@ -162,9 +146,9 @@ probabilities <- Pr(Y = Y, X = X, learnt = learntdir, parallel = parallel)
 probabilities$values[1:3, , drop=FALSE]
 ##       X
 ## Y             [,1]        [,2]
-##   [1,] 1.90946e-04 2.96503e-04
-##   [2,] 1.93117e-04 2.99676e-04
-##   [3,] 2.21409e-06 3.23666e-06
+##   [1,] 1.48864e-04 2.92848e-04
+##   [2,] 1.50579e-04 2.95792e-04
+##   [3,] 1.75271e-06 3.00103e-06
 
 
 ## Let's plot the quantile bands and the probabilities,
