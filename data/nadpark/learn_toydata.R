@@ -10,7 +10,7 @@ library('inferno')
 seed <- 16
 
 ## How many parallel CPUs to use for the computation?
-parallel <- 4
+parallel <- 12
 
 ## Name of directory where to save what has been "learned"
 ## a timestamp may be appended to this string
@@ -23,7 +23,8 @@ outputdir <- learn(
     metadata = 'metatoydata.csv',
     outputdir = savedir,
     appendtimestamp = FALSE,
+    appendinfo = FALSE,
     output = 'directory',
-    parallel = 8,
+    parallel = parallel,
     seed = seed
 )
