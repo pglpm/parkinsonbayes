@@ -14,7 +14,7 @@ parallel <- 12
 
 ## Name of directory where to save what has been "learned"
 ## a timestamp may be appended to this string
-savedir <- 'output_learn_toydata-3'
+savedir <- 'output_learn_toydata-4'
 
 ## Call the main function for "learning"
 ## it will save everything in the directory outputdir
