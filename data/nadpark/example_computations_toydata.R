@@ -7,7 +7,7 @@ library('inferno')
 parallel <- 4
 
 ## Name of directory where the "learning" has been saved
-learntdir <- 'output_learn_toydata-3'
+learntdir <- 'output_learn_toydata-4'
 
 ########################################
 #### Example 1
