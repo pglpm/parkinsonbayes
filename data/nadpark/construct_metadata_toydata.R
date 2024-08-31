@@ -10,5 +10,5 @@ library('inferno')
 ### We use the utility function 'buildmetadata()' to save a first version
 ### of a metadata file, to work on:
 
-buildmetadata('toydata.csv', file = 'temp_metatoydata.csv',
+metadatatemplate('toydata.csv', file = 'temp_metatoydata.csv',
     excludevrt = 'Subject.Id')
