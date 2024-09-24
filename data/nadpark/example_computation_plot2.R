@@ -17,7 +17,7 @@ Sexvalues <- c('Female', 'Male')
 TreatmentGroupvalues <- c('NR', 'Placebo')
 
 ## Generate all possible combinations into one data frame:
-## X has 30*2*2= = 120 rows
+## X has 30*2*2 = 120 rows
 
 X <- expand.grid(
     Age = Agevalues,
@@ -72,4 +72,4 @@ legend('right',
     lty = 1, lwd = 2,
     col = 1:7,
     bty = 'n'
-    )
+)
