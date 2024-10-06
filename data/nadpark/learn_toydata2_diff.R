@@ -19,7 +19,7 @@ savedir <- 'output_learn_naddiff-1'
 ## Call the main function for "learning"
 ## it will save everything in the directory outputdir
 outputdir <- learn(
-    data = 'dataset_demographics_NAD.csv',
+    data = 'dataset_demographics_NAD2.csv',
     metadata = 'metadata_demographics_NAD_diff.csv',
     outputdir = savedir,
     appendtimestamp = FALSE,
