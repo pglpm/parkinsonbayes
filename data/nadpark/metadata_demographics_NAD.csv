@@ -6,5 +6,5 @@ Anamnestic.Loss.of.smell,nominal,,,,,,No,Yes
 History.of.REM.Sleep.Behaviour.Disorder,nominal,,,,,,No,Yes
 MDS.UPDRS..Subsection.III.V1,ordinal,0,132,1,yes,yes,,
 diff.MDS.UPRS.III,ordinal,-132,132,1,yes,yes,,
-v1.NAD,continuous,0,1,0.001,yes,yes,,
-v2.NAD,continuous,0,1,0.001,yes,yes,,
+v1.NAD,continuous,0,,,,,,
+v2.NAD,continuous,0,,,,,,
