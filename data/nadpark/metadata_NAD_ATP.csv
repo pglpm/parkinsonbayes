@@ -1,0 +1,5 @@
+name;type;domainmin;domainmax;datastep;minincluded;maxincluded;V1;V2
+TreatmentGroup;nominal;;;;;;NR;Placebo
+v1;ordinal;0;1;0.01;yes;yes;;
+v2;ordinal;0;1;0.01;yes;yes;;
+NAD.diff;ordinal;-1;1;0.01;yes;yes;;
