@@ -3,46 +3,37 @@ library('inferno')
 parallel = 3
 learnt = 'output_learn_NAD-ratio'
 
-X <- data.frame(TreatmentGroup = c('NR', 'placebo'), visit_ratio = 0.1:1)
-Y <- data.frame(Age = 40:80)
+Agevalues <- 40:80
+sexValues <- c('male', 'female')
+treatmentGroups <- c('NR', 'Placebo')
+smellValues <- c('Yes', 'No')
+sleepValues <- c('Yes', 'No')
 
-probabilities <- Pr(Y = Y, X = X, learnt = learnt, parallel = parallel)
+for (smellValue in smellValues) {
+  for (sleepValue in sleepValues) {
+    X = data.frame(Age = 40:80,
+                    Sex = 'male',
+                    Anamnestic.Loss.of.smell = smellValue,
+                    History.of.REM.Sleep.Behaviour.Disorder = sleepValue)
+    Y = data.frame(visit_ratio = 1)
 
+    probabilities <- tailPr(Y = Y, X = X, learnt = learnt, parallel = parallel)
 
-plotquantiles(x = as.matrix(Y$Age),
-    y = probabilities$quantiles[,1,],
-    xlab = 'diff.MDS.UPRS.III',
-    ylab = 'probability of having a NAD ratio > 1',
-    col = 1
+    plottedprobs <- probabilities$values
+
+    dim(plottedprobs) <- c(
+    length(Agevalues), # rows
+    length(plottedprobs)/length(Agevalues) # rest
 )
 
-plotquantiles(x = as.matrix(Y$Age),
-    y = probabilities$quantiles[,2,],
-    xlab = 'diff.MDS.UPRS.III',
-    ylab = 'probability of having a NAD ratio > 1',
-    col = 3,
-    add = TRUE
-)
-
-flexiplot(x = as.matrix(Y$Age),
-    y = probabilities$values[,1],
-    xlab = 'diff.MDS.UPRS.III',
-    ylab = 'probability of having a NAD ratio > 1',
-    col = 1,
-    add = TRUE
-)
-
-flexiplot(x = as.matrix(Y$Age),
-    y = probabilities$values[,2],
-    xlab = 'diff.MDS.UPRS.III',
-    ylab = 'probability of having a NAD ratio > 1',
-    col = 3,
-    add = TRUE
-)
-
-legend('topright',
-    legend = c('NR', 'placebo'),
-    lty = 1, lwd = 2,
-    col = 1:2,
-    bty = 'n'
+    flexiplot(
+        x = 40:80,
+        y = plottedprobs,
+        xlab = 'Age',
+        ylab = 'visit_ratio <= 1'
     )
+    legend('topright', 
+           legend = c(paste('Loss of smell:', smellValue), paste('REM sleep:', sleepValue)), 
+           col = 1:2)
+    }
+}
