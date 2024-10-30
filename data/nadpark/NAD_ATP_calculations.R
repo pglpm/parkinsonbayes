@@ -11,10 +11,12 @@ sleepValues <- c('Yes', 'No')
 
 for (smellValue in smellValues) {
   for (sleepValue in sleepValues) {
+    dev.new()
     X = data.frame(Age = 40:80,
                     Sex = 'male',
                     Anamnestic.Loss.of.smell = smellValue,
                     History.of.REM.Sleep.Behaviour.Disorder = sleepValue)
+
     Y = data.frame(visit_ratio = 1)
 
     probabilities <- tailPr(Y = Y, X = X, learnt = learnt, parallel = parallel)
@@ -24,7 +26,7 @@ for (smellValue in smellValues) {
     dim(plottedprobs) <- c(
     length(Agevalues), # rows
     length(plottedprobs)/length(Agevalues) # rest
-)
+    )
 
     flexiplot(
         x = 40:80,
