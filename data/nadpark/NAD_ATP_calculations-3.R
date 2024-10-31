@@ -28,14 +28,14 @@ for(i in 1:nrow(combinations)){
         Sex = combo$Sex,
         Anamnestic.Loss.of.smell = combo$Anamnestic.Loss.of.smell,
         History.of.REM.Sleep.Behaviour.Disorder = combo$History.of.REM.Sleep.Behaviour.Disorder,
-    stringsAsFactors = FALSE)
+        stringsAsFactors = FALSE)
 
-        XPl <- expand.grid(Age = 40:80,
+    XPl <- expand.grid(Age = 40:80,
         TreatmentGroup = 'Placebo',
         Sex = combo$Sex,
         Anamnestic.Loss.of.smell = combo$Anamnestic.Loss.of.smell,
         History.of.REM.Sleep.Behaviour.Disorder = combo$History.of.REM.Sleep.Behaviour.Disorder,
-    stringsAsFactors = FALSE)
+        stringsAsFactors = FALSE)
 
     probsNR <- tailPr(Y = Y, X = XNR, learnt = learnt, parallel = parallel,
         quantiles=c(0.055, 0.945))
@@ -51,6 +51,7 @@ for(i in 1:nrow(combinations)){
 
     legend('topright', legend=c('Placebo', 'NR'),
         col=c(3,2), lty=1:2, lwd=2, bty='n')
+
     legend('topleft', legend=c(paste0('Sex: ',combo$Sex),
         paste0('SmellLoss: ', combo$Anamnestic.Loss.of.smell),
         paste0('SleepDisorder: ', combo$History.of.REM.Sleep.Behaviour.Disorder)

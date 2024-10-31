@@ -11,8 +11,9 @@ sleepValues <- c('Yes', 'No')
 Y <- data.frame(visit_ratio = 1)
 X <- expand.grid(Age = 40:80,
                 TreatmentGroup = treatmentGroups,
-                Anamnestic.Loss.of.smell = 'Yes',
-                History.of.REM.Sleep.Behaviour.Disorder = 'Yes')
+                Anamnestic.Loss.of.smell = smellValues
+                #History.of.REM.Sleep.Behaviour.Disorder = 'Yes'
+)
 
 probabilities <- tailPr(Y = Y, X = X, learnt = learnt, parallel = parallel)
 
@@ -39,7 +40,3 @@ flexiplot(
     xlim = c(40, 80), ylim = c(0, 1),
     add = TRUE
 )
-
-legend('topright', 
-        legend = c(('Yes, NR'), ('Yes, placebo')), 
-        col = 1:2)
