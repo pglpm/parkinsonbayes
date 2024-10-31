@@ -35,7 +35,7 @@ for (smellValue in smellValues) {
         ylab = 'visit_ratio <= 1'
     )
     legend('topright', 
-           legend = c(paste('Loss of smell:', smellValue), paste('REM sleep:', sleepValue)), 
+           legend = c(paste('Loss of smell:', smellValue), paste('REM sleep:', sleepValue)),
            col = 1:2)
     }
 }
