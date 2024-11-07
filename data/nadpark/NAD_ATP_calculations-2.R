@@ -24,14 +24,6 @@ dim(plottedprobs) <- c(
     length(plottedprobs)/length(Agevalues) # rest
 )
 
-plotquantiles(
-    x = 40:80,
-    y = probabilities$quantiles,
-    xlab = 'Age',
-    ylab = 'visit_ratio <= 1',
-    xlim = c(40, 80), ylim = c(0, 1)
-)
-
 flexiplot(
     x = 40:80,
     y = plottedprobs,
