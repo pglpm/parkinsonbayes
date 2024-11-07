@@ -15,7 +15,7 @@ combinations <- expand.grid(Sex=sexValues,
     History.REM.SleepBehaviourDisorder=sleepValues,
     stringsAsFactors = FALSE)
 
-Y <- data.frame(PBMCs.Me.Nam.ratio21 = 2.5)
+Y <- data.frame(PBMCs.Me.Nam.ratio21 = 1)
 
 for(i in 1:nrow(combinations)){
     combo <- combinations[i, ]
@@ -48,10 +48,10 @@ for(i in 1:nrow(combinations)){
     height=5.8, width=8.3, res=300, units='in', quality=90)
 
     plot(probsNR, col=2, legend=FALSE,
-        xlab='Age', ylab='P(PBMC-ratio <= 2.5)', ylim=c(0, 1))
+        xlab='Age', ylab='P(PBMCs Me-Nam-ratio <= 1)', ylim=c(0, 1))
     plot(probsPl, col=3, lty=2, legend=FALSE, add = TRUE)
 
-    abline(h = 0.5, col = 'darkgrey', lwd = 1, lty = 2)
+    abline(h = 0.5, col = '#ffd900', lwd = 2.5, lty = 2)
 
     legend('topright', legend=c('NR', 'Placebo'),
         col=c(2,3), lty=1:2, lwd=2, bty='n')
