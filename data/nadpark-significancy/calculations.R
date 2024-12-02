@@ -40,7 +40,7 @@ probsNR4star <- tailPr(Y = Y4star, X = XNR, learnt = learnt, parallel = parallel
     height=5.8, width=8.3, res=300, units='in', quality=90)
 
 plot(probsNR1star, col=1, legend=FALSE,
-    xlab='Age', ylab='P(NAD.ATP 1-star ratio <= 1)', ylim=c(0, 1))
+    xlab='Age', ylab='Probability of positive change', ylim=c(0, 1))
 
 plot(probsNR2star, col=2, legend=FALSE, add = TRUE)
 
