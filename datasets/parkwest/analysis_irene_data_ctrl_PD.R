@@ -6,7 +6,7 @@ library('inferno')
 parallel <- 8
 
 ## Name of directory where 'learnt' has been saved
-learnt <- 'irene_data_ctrl_PD-vrt13_dat116_smp3600'
+learnt <- file.path('_data','irene_data_ctrl_PD-vrt13_dat116_smp3600')
 metadata <- read.csv('meta_irene_data_ctrl_PD.csv',
     na.strings = '', stringsAsFactors = FALSE,
     colClasses=c(
