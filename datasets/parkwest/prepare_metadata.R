@@ -1,21 +1,25 @@
 #### Prepare metadata
 library('inferno')
 
-dat <- 'toy_data_0.csv'
-outfile <- 'meta_toy_data_0_CI.csv'
+datafile <- file.path('_data','irene_data_onlyPD.csv')
+outfile <- 'meta_irene_data_3temp.csv'
 
-metadatatemplate(data = dat, file = outfile,
-    includevrt = c('Group',
+metadatatemplate(data = datafile, file = outfile,
+    includevrt = c(
         'Cohort',
-        'SNpc_n',
         'SNpc_percent',
-        'PFC1_n',
         'PFC1_percent',
         'Age_of_death',
         'Sex',
         'PMI',
         'DV200',
-        'RIN'
+        'Dementia',
+        'PD_subtype_AR_TD',
+        'PD_subtype_PIGD_TD',
+        'Daily_cigarettes',
+        'Ethanol_units',
+        'total_score_UPDRS_first_examination',
+        'total_score_UPDRS_final_examination'
         ))
 
 

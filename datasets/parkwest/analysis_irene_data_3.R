@@ -6,7 +6,7 @@ library('inferno')
 parallel <- 8
 
 ## Name of directory where 'learnt' has been saved
-learnt <- file.path('_data','irene_data_onlyPD-vrt22_dat92_smp3600')
+learnt <- file.path('_data','output_irene_data_3-vrt14_dat92_smp3600')
 metadata <- read.csv('meta_irene_data_onlyPD.csv',
     na.strings = '', stringsAsFactors = FALSE,
     colClasses=c(
@@ -58,7 +58,7 @@ for(percent in c('PFC1_percent', 'SNpc_percent')){
 }
 
 ## Plot all four combinations
-pdf2(file = paste0('CIpercent_vs_phenotype'))
+pdf2(file = paste0('CIpercent_vs_phenotype_v3'))
 for(percent in c('PFC1_percent', 'SNpc_percent')){
     for(pdgroup in c('PD_subtype_AR_TD', 'PD_subtype_PIGD_TD')){
         ##
@@ -86,7 +86,7 @@ for(percent in c('PFC1_percent', 'SNpc_percent')){
                         ylab=paste0('Pr(', pdgroup, '|', percent, ')'))
                 }
             }
-            title(paste0('probability of: ', pdgroup, '   given: ', percent),
+            title(bquote('probability of: '~italic(.(pdgroup))~'   given: '~italic(.(percent))),
                 line = -1, outer = TRUE)
         }
     }
@@ -102,27 +102,31 @@ for(sex in vrts$Sex){
             Y <- as.data.frame(vrts[pdgroup])
             X <- as.data.frame(c( vrts[percent], list(Sex = sex)))
             ##
-            probssex[[percent]][[pdgroup]][[sex]] <- Pr(Y = Y, X = X, priorY = TRUE,
+            probssex[[percent]][[pdgroup]][[sex]] <- Pr(Y = Y, X = X, #priorY = TRUE,
                 learnt = learnt, quantiles = qtiles, parallel = parallel)
         }
     }
 }
 
 ## Plot all four combinations
+pdf2(file = paste0('CIpercent_vs_phenotype_Sexsubgroups'))
 for(percent in c('PFC1_percent', 'SNpc_percent')){
     for(pdgroup in c('PD_subtype_AR_TD', 'PD_subtype_PIGD_TD')){
         ##
         Y <- as.data.frame(vrts[pdgroup])
         X <- as.data.frame(vrts[percent])
-        pdf2(file = paste0(pdgroup, '_', percent, '_onlyPD_MF'))
         for(sex in vrts$Sex){
             prob <- probssex[[percent]][[pdgroup]][[sex]]
             ##
-            par(mfrow = c(2, 2), mai=rep(0.5,4), oma=rep(1,4), mar=c(4,4,0,0))
+            par(mfrow = c(2, 2), mai=rep(0.5,4), oma=rep(1,4), mar=c(4,4,2,0))
             for(i in 2:nrow(Y)){
                 for(j in 1:(nrow(Y)-1)){
                     if(i <= j){
-                        plot.new()
+                    plot(prob, variability = 'quantiles', ylim=c(0,1),
+                        lty=1:3, col=1:3,
+                        ylab=paste0('Pr(', pdgroup, '|', percent, ')'))
+                    title('-- all together --', line=-2)
+                        ## plot.new()
                     } else if(i > j){
                         prob0 <- prob
                         prob0$values <- prob0$values[c(i,j), , drop=FALSE]
@@ -136,10 +140,14 @@ for(percent in c('PFC1_percent', 'SNpc_percent')){
                     }
                 }
             }
+            ## title(paste0('probability of: ', pdgroup, '   given: ', percent,
+            ##     '   for subgroup: ', sex),
+            title(bquote('probability of: '~italic(.(pdgroup))~'   given: '~italic(.(percent))~'   for subgroup: '~italic(.(sex))),
+                line = -1, outer = TRUE)
         }
-        dev.off()
     }
 }
+dev.off()
 
 
 #### Calculation of mutual information
