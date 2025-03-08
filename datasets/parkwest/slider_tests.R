@@ -7,17 +7,17 @@ library(inferno)
 
 probs0 <- readRDS('probs_noEthanol.rds')
 
-## function to subset an object of class probability
-## (this will be included in the software later on)
-subsetpr <- function(probj, vrt, vrtval){
-    sel <- probj$X[[vrt]] == vrtval
-    probj$values <- probj$values[, sel, drop = FALSE]
-    probj$quantiles <- probj$quantiles[ , sel, , drop = FALSE]
-    probj$samples <- probj$samples[ , sel, , drop = FALSE]
-    probj$X[[vrt]] <- NULL
-    probj$X <- probj$X[sel, , drop = FALSE]
-    probj
-}
+## ## The subset function below is now implemented in inferno
+## ## No longer needed
+## subsetpr <- function(probj, vrt, vrtval){
+##     sel <- probj$X[[vrt]] == vrtval
+##     probj$values <- probj$values[, sel, drop = FALSE]
+##     probj$quantiles <- probj$quantiles[ , sel, , drop = FALSE]
+##     probj$samples <- probj$samples[ , sel, , drop = FALSE]
+##     probj$X[[vrt]] <- NULL
+##     probj$X <- probj$X[sel, , drop = FALSE]
+##     probj
+## }
 
 ui <- fluidPage(
     titlePanel("Pr(PFC1_percent | Sex, Daily_cigarettes)"),
@@ -50,14 +50,14 @@ server <- function(input, output) {
         y1 <- input$y1
         y2 <- input$y2
         ## create probability-class objects with given number of Daily_cig
-        prob1 <- subsetpr(probs0, 'Daily_cigarettes', y1)
-        prob2 <- subsetpr(probs0, 'Daily_cigarettes', y2)
+        prob1 <- subset(probs0, list(Daily_cigarettes = y1))
+        prob2 <- subset(probs0, list(Daily_cigarettes = y2))
         ##
         ## colours must still be adjusted
         plot(prob1, 
             ylim = c(0, max(prob1$quantiles, prob2$quantiles)),
-            col = 1:2)
-        plot(prob2, col = 3:4, add = TRUE)
+            col = 1:2, legend = 'top')
+        plot(prob2, col = 3:4, legend = 'topright', add = TRUE)
         ##
         legend("topleft", legend = c(
             paste("Daily_cigarettes =", y1),
