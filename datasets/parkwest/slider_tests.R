@@ -1,5 +1,7 @@
 library(shiny)
 library(inferno)
+library(htmlwidgets)
+library(plotly)
 
 ## Probabilities have been pre-calculated in script
 ## 'analysis_irene_data_4.R'
@@ -9,7 +11,7 @@ probs0 <- readRDS('probs_noEthanol.rds')
 
 ## function to subset an object of class probability
 ## (this will be included in the software later on)
-subsetpr <- function(probj, vrt, vrtval){
+subsetpr <- function(probj, vrt, vrtval) {
     sel <- probj$X[[vrt]] == vrtval
     probj$values <- probj$values[, sel, drop = FALSE]
     probj$quantiles <- probj$quantiles[ , sel, , drop = FALSE]
@@ -37,11 +39,11 @@ ui <- fluidPage(
                 max = 35,
                 value = 0,
                 step = 1)
-        ),
-        ##
+            ),
         mainPanel(plotOutput("distPlot"))
-    )
-)
+        )
+        ##
+        )
 
 
 server <- function(input, output) {
@@ -63,7 +65,7 @@ server <- function(input, output) {
             paste("Daily_cigarettes =", y1),
             paste("Daily_cigarettes =", y2)),
             col = c(1, 3), lty = 1, lwd = 2, bty='n')
-    })
+    }) 
 }
 
 app <- shinyApp(ui = ui, server = server)
