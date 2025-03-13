@@ -26,7 +26,7 @@ Y <- as.data.frame(list(PFC1_percent = vrts$PFC1_percent))
 Xall <- expand.grid(
     ## = vrts$,
     Sex = "F",
-    #Daily_cigarettes = vrts$Daily_cigarettes,
+    Daily_cigarettes = vrts$Daily_cigarettes,
     #PD_subtype_AR_TD = vrts$PD_subtype_AR_TD,
     ## Age_of_death = vrts$Age_of_death,
     Ethanol_units = vrts$Ethanol_units,
@@ -34,4 +34,4 @@ Xall <- expand.grid(
 
 probs <- Pr(Y = Y, X = Xall, learnt = learnt, quantiles = qtiles,
             parallel = parallel)
-saveRDS(object = probs, file = 'probs_Ethanol_F.rds')
+saveRDS(object = probs, file = 'probs_F.rds')
