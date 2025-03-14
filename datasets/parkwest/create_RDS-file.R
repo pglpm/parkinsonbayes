@@ -32,6 +32,6 @@ Xall <- expand.grid(
     Ethanol_units = vrts$Ethanol_units,
     stringsAsFactors = FALSE)
 
-probs <- Pr(Y = Y, X = Xall, learnt = learnt, quantiles = qtiles,
+probs <- Pr(Y = Xall, X = Y, learnt = learnt, quantiles = qtiles,
             parallel = parallel)
-saveRDS(object = probs, file = 'probs_F.rds')
+saveRDS(object = probs, file = 'probs_F_reverse.rds')

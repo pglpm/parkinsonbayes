@@ -7,7 +7,7 @@ library(plotly)
 ## 'analysis_irene_data_4.R'
 ## and saved in 'probs_noEthanol.rds'
 
-probs0 <- readRDS('probs_F.rds')
+probs0 <- readRDS('probs_F_reverse.rds')
 
 ## function to subset an object of class probability
 ## (this will be included in the software later on)
@@ -71,8 +71,8 @@ server <- function(input, output) {
         prob2 <- subsetpr(subsetpr(probs0, 'Ethanol_units', y2), 'Daily_cigarettes', y4)
         ##
         ## colours must still be adjusted
-        plot(prob1, 
-            ylim = c(0, max(prob1$quantiles, prob2$quantiles)),
+        plot(prob1,
+            ylim = c(0,1),
             col = 1:2)
         plot(prob2, col = 3:4, add = TRUE)
         ##
