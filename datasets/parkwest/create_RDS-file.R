@@ -21,11 +21,11 @@ vrts <- list(
 )
 qtiles <- c(0.055, 0.945)
 
-Y <- as.data.frame(list(PFC1_percent = vrts$PFC1_percent))
+Y <- data.frame(PFC1_percent = vrts$PFC1_percent,
+        Sex = "F")
 
 Xall <- expand.grid(
     ## = vrts$,
-    Sex = "F",
     Daily_cigarettes = vrts$Daily_cigarettes,
     #PD_subtype_AR_TD = vrts$PD_subtype_AR_TD,
     ## Age_of_death = vrts$Age_of_death,

@@ -1,55 +1,60 @@
 library(shiny)
 library(inferno)
-library(htmlwidgets)
-library(plotly)
+## ## not needed
+## library(htmlwidgets)
+## library(plotly)
 
 ## Probabilities have been pre-calculated in script
 ## 'analysis_irene_data_4.R'
 ## and saved in 'probs_noEthanol.rds'
 
-probs0 <- readRDS('probs_F_reverse.rds')
+## probs0 <- readRDS('probs_F_reverse.rds')
+## ## Find min/max of each slider variate
+## emin <- min(probs0$Y$Ethanol_units, na.rm = TRUE)
+## emax <- max(probs0$Y$Ethanol_units, na.rm = TRUE)
+## cmin <- min(probs0$Y$Daily_cigarettes, na.rm = TRUE)
+## cmax <- max(probs0$Y$Daily_cigarettes, na.rm = TRUE)
 
-## function to subset an object of class probability
-## (this will be included in the software later on)
-subsetpr <- function(probj, vrt, vrtval) {
-    sel <- probj$X[[vrt]] == vrtval
-    probj$values <- probj$values[, sel, drop = FALSE]
-    probj$quantiles <- probj$quantiles[ , sel, , drop = FALSE]
-    probj$samples <- probj$samples[ , sel, , drop = FALSE]
-    probj$X[[vrt]] <- NULL
-    probj$X <- probj$X[sel, , drop = FALSE]
-    probj
-}
+probs0 <- readRDS('probs_F.rds')
+## Find min/max of each slider variate
+emin <- min(probs0$X$Ethanol_units, na.rm = TRUE)
+emax <- max(probs0$X$Ethanol_units, na.rm = TRUE)
+cmin <- min(probs0$X$Daily_cigarettes, na.rm = TRUE)
+cmax <- max(probs0$X$Daily_cigarettes, na.rm = TRUE)
 
 ui <- fluidPage(
-    titlePanel("Pr(PFC1_percent | Sex = Female, Ethanol_units, Cigarettes)"),
+    titlePanel(paste0('Pr(',
+        paste0(names(probs0$Y), collapse=', '),
+        ' | ',
+        paste0(names(probs0$X), collapse=', '),
+        ')')),
     ##
-    ## Sidebar layout with sliders for y1 and y2
+    ## Sidebar layout with sliders for e1 and e2
     sidebarLayout(
         sidebarPanel(
-            sliderInput("y1",
+            sliderInput("e1",
                 "Ethanol_units 1:",
-                min = 0,
-                max = 35,
-                value = 0,
+                min = emin,
+                max = emax,
+                value = emin,
                 step = 1),
-            sliderInput("y2",
+            sliderInput("e2",
                 "Ethanol_units 2:",
-                min = 0,
-                max = 35,
-                value = 0,
+                min = emin,
+                max = emax,
+                value = emin,
                 step = 1),
-            sliderInput("y3",
+            sliderInput("c1",
                 "Daily_cigarettes 1:",
-                min = 0,
-                max = 35,
-                value = 0,
+                min = cmin,
+                max = cmax,
+                value = cmin,
                 step = 1),
-            sliderInput("y4",
+            sliderInput("c2",
                 "Daily_cigarettes 2:",
-                min = 0,
-                max = 35,
-                value = 0,
+                min = cmin,
+                max = cmax,
+                value = cmin,
                 step = 1)
             ),
         mainPanel(plotOutput("distPlot"))
@@ -61,24 +66,27 @@ ui <- fluidPage(
 server <- function(input, output) {
     output$distPlot <- renderPlot({
         ##
-        y1 <- input$y1
-        y2 <- input$y2
-        y3 <- input$y3
-        y4 <- input$y4
+        e1 <- input$e1
+        e2 <- input$e2
+        c1 <- input$c1
+        c2 <- input$c2
 
         ## create probability-class objects with given number of Daily_cig
-        prob1 <- subsetpr(subsetpr(probs0, 'Ethanol_units', y1), 'Daily_cigarettes', y3)
-        prob2 <- subsetpr(subsetpr(probs0, 'Ethanol_units', y2), 'Daily_cigarettes', y4)
-        ##
+        prob1 <- subset(probs0, list(Ethanol_units = e1, Daily_cigarettes = c1))
+        prob2 <- subset(probs0, list(Ethanol_units = e2, Daily_cigarettes = c2))
+
+        ## Find max of probabilities, including quantiles
+        ymax <- max(prob1$quantiles, prob2$quantiles, na.rm=TRUE)
+
         ## colours must still be adjusted
         plot(prob1,
-            ylim = c(0,1),
-            col = 1:2)
-        plot(prob2, col = 3:4, add = TRUE)
+            ylim = c(0, ymax),
+            col = 1:2, legend = FALSE)
+        plot(prob2, col = 3:4, add = TRUE, legend = FALSE)
         ##
         legend("topleft", legend = c(
-            paste("Ethanol_units 1 =", y1, ", Daily_cigarettes 1 =", y3),
-            paste("Ethanol_units 2 =", y2, ", Daily_cigarettes 2 =", y4)),
+            paste("Ethanol_units 1 =", e1, ", Daily_cigarettes 1 =", c1),
+            paste("Ethanol_units 2 =", e2, ", Daily_cigarettes 2 =", c2)),
             col = c(1, 3), lty = 1, lwd = 2, bty='n')
     }) 
 }
