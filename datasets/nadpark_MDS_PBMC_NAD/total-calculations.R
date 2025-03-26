@@ -1,6 +1,6 @@
 library('inferno')
 parallel = 3
-learnt = 'output_learn_MDS_PBMC_NAD'
+learnt = 'output_learn_PBMC_NAD'
 
 Agevalues <- 40:80
 sexValues <- c('male', 'female')

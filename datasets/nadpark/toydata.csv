@@ -1,4 +1,4 @@
-TreatmentGroup,Sex,Age,Anamnestic.Loss.of.smell,History.of.REM.Sleep.Behaviour.Disorder,MDS.UPDRS..Subsection.III.V1,diff.MDS.UPRS.III
+TreatmentGroup,Sex,Age,Anamnestic.Loss.of.smell,History.of.REM.Sleep.Behaviour.Disorder,MDS.UPDRS..Subsection.III.V1,diff.MDS.UPDRS.III
 Placebo,Male,66,No,No,44,-2
 NR,Female,65,Yes,No,32,10
 Placebo,Male,66,Yes,No,31,4

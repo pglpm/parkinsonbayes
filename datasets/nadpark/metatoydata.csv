@@ -5,4 +5,4 @@ Age,continuous,1,0,,no,no,,
 Anamnestic.Loss.of.smell,nominal,,,,,,No,Yes
 History.of.REM.Sleep.Behaviour.Disorder,nominal,,,,,,No,Yes
 MDS.UPDRS..Subsection.III.V1,ordinal,1,0,132,yes,yes,,
-diff.MDS.UPRS.III,ordinal,1,-132,132,yes,yes,,
+diff.MDS.UPDRS.III,ordinal,1,-132,132,yes,yes,,

@@ -11,6 +11,7 @@ probs0 <- readRDS('probs_noEthanol.rds')
 
 ## function to subset an object of class probability
 ## (this will be included in the software later on)
+
 subsetpr <- function(probj, vrt, vrtval) {
     sel <- probj$X[[vrt]] == vrtval
     probj$values <- probj$values[, sel, drop = FALSE]
@@ -20,6 +21,7 @@ subsetpr <- function(probj, vrt, vrtval) {
     probj$X <- probj$X[sel, , drop = FALSE]
     probj
 }
+
 ## ## The subset function below is now implemented in inferno
 ## ## No longer needed
 ## subsetpr <- function(probj, vrt, vrtval){
