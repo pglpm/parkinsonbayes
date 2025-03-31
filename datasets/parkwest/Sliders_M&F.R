@@ -11,8 +11,7 @@ probs_SNpc_M <- readRDS('probs_M_SNpc.rds')
 
 # UI
 ui <- fluidPage(
-    tags$head(tags$title("Probability Plots - Female")),  # Initial title
-    titlePanel(textOutput("page_title")),  # Dynamic title
+    uiOutput("page_title"),  # Dynamically updated title
     
     sidebarLayout(
         sidebarPanel(
@@ -40,18 +39,18 @@ server <- function(input, output, session) {
     
     gender <- reactiveVal("Female")  # Default gender
 
-    output$page_title <- renderText({
-        paste("Probability Plots -", gender())
+    output$page_title <- renderUI({
+        titlePanel(paste("Probability Plots -", gender()))  # Updates page title dynamically
     })
 
     observeEvent(input$female_btn, {
         gender("Female")
-        session$sendCustomMessage("updateTitle", "Probability Plots - Female")
+        update_sliders()
     })
     
     observeEvent(input$male_btn, {
         gender("Male")
-        session$sendCustomMessage("updateTitle", "Probability Plots - Male")
+        update_sliders()
     })
 
     dataset <- reactive({
@@ -60,6 +59,41 @@ server <- function(input, output, session) {
         } else {
             list(PFC = probs_PFC_M, SNpc = probs_SNpc_M)
         }
+    })
+
+    # Function to update slider ranges
+    update_sliders <- function() {
+        if (input$selected_tab == "SNpc Plot") {
+            updateSliderInput(session, "e1", min = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
+                              max = max(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
+                              value = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE))
+            updateSliderInput(session, "c1", min = min(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE), 
+                              max = max(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE), 
+                              value = min(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE))
+            updateSliderInput(session, "e2", min = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
+                              max = max(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
+                              value = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE))
+            updateSliderInput(session, "c2", min = min(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE), 
+                              max = max(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE), 
+                              value = min(dataset()$SNpc$X$Daily_cigarettes, na.rm = TRUE))
+        } else {
+            updateSliderInput(session, "e1", min = min(dataset()$PFC$X$Ethanol_units, na.rm = TRUE), 
+                              max = max(dataset()$PFC$X$Ethanol_units, na.rm = TRUE), 
+                              value = min(dataset()$PFC$X$Ethanol_units, na.rm = TRUE))
+            updateSliderInput(session, "c1", min = min(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE), 
+                              max = max(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE), 
+                              value = min(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE))
+            updateSliderInput(session, "e2", min = min(dataset()$PFC$X$Ethanol_units, na.rm = TRUE), 
+                              max = max(dataset()$PFC$X$Ethanol_units, na.rm = TRUE), 
+                              value = min(dataset()$PFC$X$Ethanol_units, na.rm = TRUE))
+            updateSliderInput(session, "c2", min = min(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE), 
+                              max = max(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE), 
+                              value = min(dataset()$PFC$X$Daily_cigarettes, na.rm = TRUE))
+        }
+    }
+
+    observeEvent(input$selected_tab, {
+        update_sliders()
     })
 
     output$SNpcPlot <- renderPlot({
@@ -97,16 +131,5 @@ server <- function(input, output, session) {
     })
 }
 
-# Custom JavaScript to update the browser tab title dynamically
-js_code <- "
-Shiny.addCustomMessageHandler('updateTitle', function(newTitle) {
-    document.title = newTitle;
-});
-"
-
-app = shinyApp(ui = tagList(
-    tags$head(tags$script(HTML(js_code))),  # Include JS for title change
-    ui
-), server)
-
+app <- shinyApp(ui = ui, server = server)
 runApp(app)
