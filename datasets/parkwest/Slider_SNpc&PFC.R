@@ -1,8 +1,10 @@
 library(shiny)
 library(inferno)
 
+# Female data
 probs_PFC <- readRDS('probs_F_PFC.rds')
 probs_SNpc <- readRDS('probs_F_SNpc.rds')
+
 
 # min/max values for PFC
 emin_PFC <- min(probs_PFC$X$Ethanol_units, na.rm = TRUE)

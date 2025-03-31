@@ -21,11 +21,12 @@ vrts <- list(
 )
 qtiles <- c(0.055, 0.945)
 
-Y <- data.frame(SNpc_percent = vrts$SNpc_percent)
+#Y <- data.frame(SNpc_percent = vrts$SNpc_percent)
+Y <- data.frame(PFC1_percent = vrts$PFC1_percent)
 
 Xall <- expand.grid(
     ## = vrts$,
-    Sex = "F",
+    Sex = 'M', #vrts$Sex,
     Daily_cigarettes = vrts$Daily_cigarettes,
     #PD_subtype_AR_TD = vrts$PD_subtype_AR_TD,
     ## Age_of_death = vrts$Age_of_death,
@@ -34,4 +35,4 @@ Xall <- expand.grid(
 
 probs <- Pr(Y = Y, X = Xall, learnt = learnt, quantiles = qtiles,
             parallel = parallel)
-saveRDS(object = probs, file = 'probs_F_SNpc.rds')
+saveRDS(object = probs, file = 'probs_M_PFC.rds')
