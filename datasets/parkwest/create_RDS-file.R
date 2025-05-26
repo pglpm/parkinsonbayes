@@ -9,8 +9,8 @@ vrts <- list(
     ## Group = c('Ctrl', 'PD'),
     PD_subtype_AR_TD = c("AR","Mixed","TD"),
     PD_subtype_PIGD_TD = c("PIGD","Mixed","TD"),
-    PFC1_percent = 75:100,
-    SNpc_percent = 15:100,
+    PFC1_percent = 85:100,
+    SNpc_percent = 40:100,
     Sex = c('F', 'M'),
     PMI = 1:131,
     DV200 = 65:100,
@@ -22,11 +22,11 @@ vrts <- list(
 qtiles <- c(0.055, 0.945)
 
 #Y <- data.frame(SNpc_percent = vrts$SNpc_percent)
-Y <- data.frame(PFC1_percent = vrts$PFC1_percent)
+Y <- data.frame(SNpc_percent = vrts$PFC1_percent)
 
 Xall <- expand.grid(
     ## = vrts$,
-    Sex = 'M', #vrts$Sex,
+    Sex = vrts$Sex,
     Daily_cigarettes = vrts$Daily_cigarettes,
     #PD_subtype_AR_TD = vrts$PD_subtype_AR_TD,
     ## Age_of_death = vrts$Age_of_death,
@@ -35,4 +35,4 @@ Xall <- expand.grid(
 
 probs <- Pr(Y = Y, X = Xall, learnt = learnt, quantiles = qtiles,
             parallel = parallel)
-saveRDS(object = probs, file = 'probs_M_PFC.rds')
+saveRDS(object = probs, file = 'probs_SNpc_scaled.rds')

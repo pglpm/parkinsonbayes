@@ -1,54 +1,57 @@
 library('inferno')
 
 parallel <- 3
-
-learnt <- 'output_learn_NADPARK-significancy'
-
+learnt <- '_data/output_learn_NADPARK-significancy'
 Agevalues <- 40:80
-SexValues <- c('Male', 'Female')
-TreatmentGroups <- c('NR', 'Placebo')
-SmellValues <- c('Yes', 'No')
-SleepValues <- c('Yes', 'No')
-DiagnosisValues <- c('Established', 'Probable')
 
-Y1star <- data.frame(NAD.ATP.1star.ratio21 = 1)
-Y2star <- data.frame(GDF15.serum.2star.ratio = 1)
-Y3star <- data.frame(Muscle.Me.NAAD.3star.ratio = 1)
-Y4star <- data.frame(PBMCs.Me.Nam.4star.ratio21 = 1)
+# Define model input values
+Y_list <- list(
+  '1star' = data.frame(NAD.ATP.1star.ratio21 = 1),
+  '2star' = data.frame(GDF15.serum.2star.ratio = 1),
+  '3star' = data.frame(Muscle.Me.NAAD.3star.ratio = 1),
+  '4star' = data.frame(PBMCs.Me.Nam.4star.ratio21 = 1)
+)
 
-XNR <- expand.grid(Age = Agevalues,
-    TreatmentGroup = 'NR',
-    stringsAsFactors = FALSE)
+# Custom display names
+display_names <- list(
+  '1star' = 'NAD.ATP (1-star)',
+  '2star' = 'GDF15 (2-star)',
+  '3star' = 'Muscle.Me.NAAD (3-star)',
+  '4star' = 'PBMCs.Me.Nam (4-star)'
+)
 
-XPl <- expand.grid(Age = Agevalues,
-    TreatmentGroup = 'Placebo',
-    stringsAsFactors = FALSE)
+# Tail direction for each plot
+lower_tail_flags <- c('1star' = FALSE, '2star' = TRUE, '3star' = FALSE, '4star' = FALSE)
 
-probsNR1star <- tailPr(Y = Y1star, X = XNR, learnt = learnt, parallel = parallel,
-    quantiles=c(0.055, 0.945), lower.tail=FALSE)
+XNR <- expand.grid(Age = Agevalues, TreatmentGroup = 'NR', stringsAsFactors = FALSE)
+XPl <- expand.grid(Age = Agevalues, TreatmentGroup = 'Placebo', stringsAsFactors = FALSE)
 
-probsNR2star <- tailPr(Y = Y2star, X = XNR, learnt = learnt, parallel = parallel,
-    quantiles=c(0.055, 0.945))
+colors <- c('NR' = 1, 'Placebo' = 2)
 
-probsNR3star <- tailPr(Y = Y3star, X = XNR, learnt = learnt, parallel = parallel,
-    quantiles=c(0.055, 0.945), lower.tail = FALSE)
-
-probsNR4star <- tailPr(Y = Y4star, X = XNR, learnt = learnt, parallel = parallel,
-    quantiles=c(0.055, 0.945), lower.tail = FALSE)
-
-    jpeg(file=file.path('Images', paste0('significancy.png')), 
-    height=5.8, width=8.3, res=300, units='in', quality=90)
-
-plot(probsNR1star, col=1, legend=FALSE,
-    xlab='Age', ylab='Probability of positive change', ylim=c(0, 1))
-
-plot(probsNR2star, col=2, legend=FALSE, add = TRUE)
-
-plot(probsNR3star, col=3, legend=FALSE, add = TRUE)
-
-plot(probsNR4star, col=4, legend=FALSE, add = TRUE)
-
-legend('topright', legend=c('NAD.ATP-1-star', 'GDF15-2-star', 'Muscle.Me.NAAD-3-star', 'PBMCs.Me-Nam-4-star'),
-    col=1:4, lty=1, lwd=2, bty='n')
-
-dev.off()
+for (name in names(Y_list)) {
+  Y <- Y_list[[name]]
+  lower.tail <- lower_tail_flags[[name]]
+  label <- display_names[[name]]
+  
+  # Compute probabilities
+  probsNR <- tailPr(Y = Y, X = XNR, learnt = learnt, parallel = parallel,
+                    quantiles = c(0.055, 0.945), lower.tail = lower.tail)
+  probsPl <- tailPr(Y = Y, X = XPl, learnt = learnt, parallel = parallel,
+                    quantiles = c(0.055, 0.945), lower.tail = lower.tail)
+  
+  # Save plot
+  jpeg(file = file.path('Images', paste0('significancy_', name, '.png')), 
+       height = 5.8, width = 8.3, res = 300, units = 'in', quality = 90)
+  
+  plot(probsNR, col = colors['NR'], legend = FALSE,
+       xlab = 'Age', ylab = 'Probability of positive change', ylim = c(0, 1))
+  
+  plot(probsPl, col = colors['Placebo'], legend = FALSE, add = TRUE)
+  
+  legend('topright',
+         legend = c(paste(label, 'NR'), paste(label, 'Placebo')),
+         col = c(colors['NR'], colors['Placebo']),
+         lty = 1, lwd = 2, bty = 'n')
+  
+  dev.off()
+}

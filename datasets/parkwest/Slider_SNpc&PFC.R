@@ -7,16 +7,16 @@ probs_SNpc <- readRDS('probs_F_SNpc.rds')
 
 
 # min/max values for PFC
-emin_PFC <- min(probs_PFC$X$Ethanol_units, na.rm = TRUE)
-emax_PFC <- max(probs_PFC$X$Ethanol_units, na.rm = TRUE)
-cmin_PFC <- min(probs_PFC$X$Daily_cigarettes, na.rm = TRUE)
-cmax_PFC <- max(probs_PFC$X$Daily_cigarettes, na.rm = TRUE)
+emin_PFC <- min(probs_PFC_scaled$X$Ethanol_units, na.rm = TRUE)
+emax_PFC <- max(probs_PFC_scaled$X$Ethanol_units, na.rm = TRUE)
+cmin_PFC <- min(probs_PFC_scaled$X$Daily_cigarettes, na.rm = TRUE)
+cmax_PFC <- max(probs_PFC_scaled$X$Daily_cigarettes, na.rm = TRUE)
 
 # min/max values for SNpc
-emin_SNpc <- min(probs_SNpc$X$Ethanol_units, na.rm = TRUE)
-emax_SNpc <- max(probs_SNpc$X$Ethanol_units, na.rm = TRUE)
-cmin_SNpc <- min(probs_SNpc$X$Daily_cigarettes, na.rm = TRUE)
-cmax_SNpc <- max(probs_SNpc$X$Daily_cigarettes, na.rm = TRUE)
+emin_SNpc <- min(probs_SNpc_scaled$X$Ethanol_units, na.rm = TRUE)
+emax_SNpc <- max(probs_SNpc_scaled$X$Ethanol_units, na.rm = TRUE)
+cmin_SNpc <- min(probs_SNpc_scaled$X$Daily_cigarettes, na.rm = TRUE)
+cmax_SNpc <- max(probs_SNpc_scaled$X$Daily_cigarettes, na.rm = TRUE)
 
 ui <- fluidPage(
     titlePanel("Probability Plots"),

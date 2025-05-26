@@ -3,10 +3,11 @@ library(inferno)
 parallel <- 3
 learnt = 'output_learn_PBMC_NAD'
 
-probabilities <- Pr(
-    Y = data.frame(Tot.MDS.UPDRS.diff21 = (-30):30),
-    X = data.frame(Sex = 'Female', TreatmentGroup = 'NR'),
-    learnt = learnt
-)
+probabilities <- tailPr(
+    Y = data.frame(PBMCs.Me.Nam.ratio21 = 1),
+    X = data.frame(Sex = 'Female', TreatmentGroup = 'NR', Age = 60),
+    learnt = learnt, lower.tail = FALSE, quantiles = c(0.055, 0.945),
+    parallel = parallel)
+
 
 plot(probabilities)

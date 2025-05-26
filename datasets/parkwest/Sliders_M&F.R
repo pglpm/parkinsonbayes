@@ -27,8 +27,8 @@ ui <- fluidPage(
         mainPanel(
             tabsetPanel(
                 id = "selected_tab",
-                tabPanel("SNpc Plot", plotOutput("SNpcPlot")),
-                tabPanel("PFC Plot", plotOutput("PFCPlot"))
+                tabPanel("SNpc", plotOutput("SNpcPlot")),
+                tabPanel("PFC", plotOutput("PFCPlot"))
             )
         )
     )
@@ -40,7 +40,8 @@ server <- function(input, output, session) {
     gender <- reactiveVal("Female")  # Default gender
 
     output$page_title <- renderUI({
-        titlePanel(paste("Probability Plots -", gender()))  # Updates page title dynamically
+        #titlePanel(paste("Probability Plots -", gender()))  # Updates page title dynamically
+        titlePanel(paste("P(", input$selected_tab, " | ", gender(), ", Daily_cigarettes, Ethanol_units)"))
     })
 
     observeEvent(input$female_btn, {
@@ -63,7 +64,7 @@ server <- function(input, output, session) {
 
     # Function to update slider ranges
     update_sliders <- function() {
-        if (input$selected_tab == "SNpc Plot") {
+        if (input$selected_tab == "SNpc") {
             updateSliderInput(session, "e1", min = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
                               max = max(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE), 
                               value = min(dataset()$SNpc$X$Ethanol_units, na.rm = TRUE))
@@ -97,7 +98,7 @@ server <- function(input, output, session) {
     })
 
     output$SNpcPlot <- renderPlot({
-        req(input$selected_tab == "SNpc Plot")
+        req(input$selected_tab == "SNpc")
 
         probs1 <- subset(dataset()$SNpc, list(Ethanol_units = input$e1, Daily_cigarettes = input$c1))
         probs2 <- subset(dataset()$SNpc, list(Ethanol_units = input$e2, Daily_cigarettes = input$c2))
@@ -111,10 +112,14 @@ server <- function(input, output, session) {
             paste("Ethanol_units 1 =", input$e1, ", Daily_cigarettes 1 =", input$c1),
             paste("Ethanol_units 2 =", input$e2, ", Daily_cigarettes 2 =", input$c2)),
             col = c(1, 3), lty = 1, lwd = 2, bty = 'n')
+        legend("topright", legend = c(
+                    paste("Gender: ", gender()),
+                    paste("Value: ", input$selected_tab))
+        )
     })
 
     output$PFCPlot <- renderPlot({
-        req(input$selected_tab == "PFC Plot")
+        req(input$selected_tab == "PFC")
 
         probs1 <- subset(dataset()$PFC, list(Ethanol_units = input$e1, Daily_cigarettes = input$c1))
         probs2 <- subset(dataset()$PFC, list(Ethanol_units = input$e2, Daily_cigarettes = input$c2))
@@ -128,6 +133,10 @@ server <- function(input, output, session) {
             paste("Ethanol_units 1 =", input$e1, ", Daily_cigarettes 1 =", input$c1),
             paste("Ethanol_units 2 =", input$e2, ", Daily_cigarettes 2 =", input$c2)),
             col = c(1, 3), lty = 1, lwd = 2, bty = 'n')
+        legend("topright", legend = c(
+                    paste("Gender: ", gender()),
+                    paste("Value: ", input$selected_tab))
+        )
     })
 }
 

@@ -12,6 +12,8 @@ probabilities <- Pr(
     learnt = learnt
 )
 
-plot(probabilities)
+jpeg('Images/UPDRS_sample_graph.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
 
-#save as image file: jpeg('Images/v2/Sex.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
+plot(probabilities, variability = 'samples', legend=("topright"), ylim=c(0, 0.15))
+dev.off()
+
