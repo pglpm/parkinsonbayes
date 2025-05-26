@@ -12,6 +12,7 @@ probsNR <- Pr(Y = Y, X = XNR, learnt = learnt, parallel = parallel,
 probsPl <- Pr(Y = Y, X = XPl, learnt = learnt, parallel = parallel,
                   quantiles = c(0.055, 0.945))
 
+plot.new()
 plot(probsNR, legend = FALSE, xlab="NAD/ATP V2-V1")
 plot(probsPl, col=2, lty = 2, legend = FALSE, add = TRUE)
 
