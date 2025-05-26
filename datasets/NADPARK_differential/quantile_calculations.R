@@ -2,7 +2,7 @@ library('inferno')
 
 parallel <- 3
 
-learnt <- '_data/output_learn_NADPARK-differentinal'
+learnt <- 'output_learn_NADPARK-differentinal'
 
 Y_list <- list(
   'NAD-ATP' = data.frame(NAD.ATP.1star.diff = (-0.2):0.3),
