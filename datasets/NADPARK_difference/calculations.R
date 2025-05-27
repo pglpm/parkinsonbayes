@@ -5,10 +5,10 @@ parallel <- 3
 learnt <- 'output_learn_NADPARK-difference'
 
 Y_list <- list(
-  'NAD-ATP' = data.frame(NAD.ATP.1star.diff = (-0.2):0.3),
+  'NAD-ATP' = data.frame(NAD.ATP.1star.diff = seq(-0.2,0.3, by = 0.01)),
   'GDF-15' = data.frame(GDF15.serum.2star.diff = (-870):910),
-  'Muscle-Me-NAAD' = data.frame(Muscle.Me.NAAD.3star.diff = (-1):2),
-  'PBMCs-Me-Nam' = data.frame(PBMCs.Me.Nam.4star.diff = (-0.1):2.1)
+  'Muscle Me-NAAD' = data.frame(Muscle.Me.NAAD.3star.diff = seq(-1,2, by=0.01)),
+  'PBMCs Me-Nam' = data.frame(PBMCs.Me.Nam.4star.diff = seq(-0.1, 2.1, by = 0.01))
 )
 
 XNR <- expand.grid(TreatmentGroup = 'NR', stringsAsFactors = FALSE)
@@ -26,7 +26,6 @@ for (name in names(Y_list)) {
   probsPl <- Pr(Y = Y, X = XPl, learnt = learnt, parallel = parallel,
                     quantiles = c(0.055, 0.945))
 
-  plot.new()
   plot(probsNR, legend = FALSE, xlab = paste0(name, ' (v2-v1)'))
   plot(probsPl, col=2, lty = 2, legend = FALSE, add = TRUE)
 

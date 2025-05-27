@@ -12,8 +12,7 @@ probabilities <- Pr(
     learnt = learnt
 )
 
-jpeg('Images/UPDRS_sample_graph.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
+#jpeg('Images/UPDRS_sample_graph.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
 
-plot(probabilities, variability = 'samples', legend=("topright"), ylim=c(0, 0.15))
-dev.off()
-
+plot(probabilities, legend=("topright"), ylim=c(0, 0.15))
+#dev.off()

@@ -4,7 +4,7 @@ parallel <- 3
 
 learnt <- 'output_learn_NADPARK-difference'
 
-Y <- data.frame(NAD.ATP.1star.diff = 0:2)
+Y <- data.frame(NAD.ATP.1star.diff = seq(-1, 1, by = 0.01))
 
 XNR <- expand.grid(TreatmentGroup = 'NR')
 XPl <- expand.grid(TreatmentGroup = 'Placebo')
