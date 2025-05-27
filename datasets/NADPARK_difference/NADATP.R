@@ -14,7 +14,10 @@ probsNR <- Pr(Y = Y, X = XNR, learnt = learnt, parallel = parallel,
 probsPl <- Pr(Y = Y, X = XPl, learnt = learnt, parallel = parallel,
                 quantiles = c(0.055, 0.945))
 
-plot(probsNR, legend = FALSE)
-plot(probsPl, col = 2, lty = 2, legend = FALSE, add = TRUE)
+ymax <- max(probsNR$quantiles, probsPl$quantiles, na.rm = TRUE)
+
+plot(probsNR, legend = FALSE, 
+    xlab = '(v2-v1)', ylim = c(0, ymax))
+plot(probsPl, col=2, lty = 2, legend = FALSE, add = TRUE)
 
 legend('topleft', legend = c('NR', 'Placebo'), col = 1:2, lty = 1:2)
