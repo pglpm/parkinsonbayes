@@ -10,24 +10,21 @@ sleepValues <- c('Yes', 'No')
 diagnosisValues <- c('Established', 'Probable')
 
 Y <- data.frame(PBMCs.Me.Nam.ratio21 = 1)
-X <- expand.grid(Age = Agevalues,
+XNR <- expand.grid(Age = Agevalues,
                 TreatmentGroup = 'NR',
-                Sex='Male',
-                MDS.ClinicalDiagnosisCriteria = 'Established',
-                AnamnesticLossSmell = 'Yes',
-                History.REM.SleepBehaviourDisorder = 'Yes',
-                stringsAsFactors = FALSE
+                Sex='Female'
 )
 
-probabilities <- tailPr(Y = Y, X = X, learnt = learnt, 
+XNR <- expand.grid(Age = Agevalues,
+                TreatmentGroup = 'Placebo',
+                Sex='Female'
+)
+
+probsNR <- tailPr(Y = Y, X = XNR, learnt = learnt, 
+                        parallel = parallel, 
+                            lower.tail = FALSE)
+probsNR <- tailPr(Y = Y, X = XNR, learnt = learnt, 
                         parallel = parallel, 
                             lower.tail = FALSE)
 
-plottedprobs <- probabilities$values
-
-dim(plottedprobs) <- c(
-length(Agevalues), # rows
-length(plottedprobs)/length(Agevalues) # rest
-)
-
-plot(probabilities)
+plot(probsNR)

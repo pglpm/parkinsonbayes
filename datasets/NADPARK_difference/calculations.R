@@ -32,6 +32,6 @@ for (name in names(Y_list)) {
        xlab = paste0(name, ' (v2-v1)'), ylim = c(0, ymax))
   plot(probsPl, col=2, lty = 2, legend = FALSE, add = TRUE)
 
-  legend('topleft', legend = c(paste0(name, ': NR'), paste0(name, ': Placebo')), col = 1:2, lty = 1:2)
+  legend('topright', legend = c(paste0(name, ': NR'), paste0(name, ': Placebo')), col = 1:2, lty = 1:2, bty = 'n')
   dev.off()
 }
