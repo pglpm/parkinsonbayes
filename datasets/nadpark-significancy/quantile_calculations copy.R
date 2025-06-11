@@ -18,8 +18,7 @@ probsNR <- tailPr(Y = Y, X = XNR, learnt = learnt, parallel = parallel,
 probsPl <- tailPr(Y = Y, X = XPl, learnt = learnt, parallel = parallel,
                   quantiles = c(0.055, 0.945), lower.tail = FALSE)
 
-pdf(file = paste0('Images/first_plot.pdf'),
-      paper = 'special', height=148/25.4*1.5, width=210/25.4*1.5)
+jpeg('Images/first_plots.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
 
 plot(probsNR, legend = FALSE, ylab = 'P(PBMCs.Me.Nam.ratio >= 1)')
 plot(probsPl, col = 2, lty = 2, add = TRUE, legend = FALSE)
