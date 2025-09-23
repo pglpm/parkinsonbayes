@@ -106,12 +106,12 @@ server <- function(input, output, session) {
         ymax <- max(probs1$quantiles, probs2$quantiles, na.rm = TRUE)
 
         plot(probs1, ylim = c(0, ymax), col = 1:2, legend = FALSE)
-        plot(probs2, col = 3:4, add = TRUE, legend = FALSE)
+        plot(probs2, col = 2:3, lty = 2, add = TRUE, legend = FALSE)
 
         legend("topleft", legend = c(
             paste("Ethanol_units 1 =", input$e1, ", Daily_cigarettes 1 =", input$c1),
             paste("Ethanol_units 2 =", input$e2, ", Daily_cigarettes 2 =", input$c2)),
-            col = c(1, 3), lty = 1, lwd = 2, bty = 'n')
+            col = c(1, 2), lty = c(1,2), lwd = 2, bty = 'n')
         legend("topright", legend = c(
                     paste("Gender: ", gender()),
                     paste("Value: ", input$selected_tab))
@@ -127,12 +127,12 @@ server <- function(input, output, session) {
         ymax <- max(probs1$quantiles, probs2$quantiles, na.rm = TRUE)
 
         plot(probs1, ylim = c(0, ymax), col = 1:2, legend = FALSE)
-        plot(probs2, col = 3:4, add = TRUE, legend = FALSE)
+        plot(probs2, col = 2:3, lty = 2, add = TRUE, legend = FALSE)
 
         legend("topleft", legend = c(
             paste("Ethanol_units 1 =", input$e1, ", Daily_cigarettes 1 =", input$c1),
             paste("Ethanol_units 2 =", input$e2, ", Daily_cigarettes 2 =", input$c2)),
-            col = c(1, 3), lty = 1, lwd = 2, bty = 'n')
+            col = c(1, 2), lty = c(1,2), lwd = 2, bty = 'n')
         legend("topright", legend = c(
                     paste("Gender: ", gender()),
                     paste("Value: ", input$selected_tab))

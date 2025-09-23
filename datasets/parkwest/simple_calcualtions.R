@@ -29,18 +29,23 @@ vrts <- list(
 qtiles <- c(0.055, 0.945)
 
 Y_PFC <- data.frame(PFC1_percent = vrts$PFC1_percent)
-X_0 <- data.frame(Daily_cigarettes = 0, Ethanol_units = 0)
-X_4 <- data.frame(Daily_cigarettes = 0, Ethanol_units = 4)
+Y_SNpc <- data.frame(SNpc_percent = vrts$SNpc_percent)
+X_0 <- data.frame(Sex = 'F', Daily_cigarettes = 0, Ethanol_units = 0)
+X_4 <- data.frame(Sex = 'F', Daily_cigarettes = 0, Ethanol_units = 4)
 probs_0 <- Pr(Y = Y_PFC, X = X_0, learnt = learnt, quantiles = qtiles, parallel = parallel)
 probs_4 <- Pr(Y = Y_PFC, X = X_4, learnt = learnt, quantiles = qtiles, parallel = parallel)
 
-pdf(file = paste0('Images/0vs4_EthanolUnits.pdf'),
-        paper = 'special', height=148/25.4*1.5, width=210/25.4*1.5)
+#pdf(file = paste0('Images/PFC/PFC_SubgroupExample.pdf'),
+#        paper = 'special', height=148/25.4*1.5, width=210/25.4*1.5)
+jpeg('Images/PFC/PFC_SubgroupExample.jpg', height=5.8, width=8.3, res=300, units='in', quality=90)
 
 plot(probs_0, col = 1, lty = 1, legend=FALSE)
-plot(probs_4, col = 3, lty = 2, add = TRUE, legend=FALSE)
+plot(probs_4, col = 2, lty = 2, add = TRUE, legend=FALSE)
 legend("topleft", legend = c(
-            paste("Ethanol_units = 0", ", Daily_cigarettes = 0"),
-            paste("Ethanol_units = 4", ", Daily_cigarettes = 0")),
-            col = c(1,3), lty = (1:2), lwd = 2, bty = 'n')
+            paste("Ethanol_units = ", X_0$Ethanol_units, ", Daily_cigarettes = ", X_0$Daily_cigarettes),
+            paste("Ethanol_units = ", X_4$Ethanol_units, ", Daily_cigarettes = ", X_4$Daily_cigarettes)),
+            col = c(1,2), lty = (1:2), lwd = 2, bty = 'n')
+legend("topright", legend = c(
+            "Gender: Female",
+            "Value: PFC"))
 dev.off()
